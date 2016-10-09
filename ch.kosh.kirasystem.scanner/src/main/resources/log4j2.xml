@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Appenders>
+		<File name="fileLoggerScanner" fileName="/home/pi/javaStuff/kiraScanner.local.log"
+			append="true">
+			<PatternLayout pattern="%d %t %-5p %c{2} - %m%n" />
+		</File>
+		<RollingFile name="rollingFileLogger" fileName="/home/pi/javaStuff/kiraScanner.log" 
+		 filePattern="/home/pi/javaStuff/kiraScanner-%d{yyyy-MM-dd}-%i.log.gz">
+			<PatternLayout pattern="%d %t %-5p %c{2} - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="5 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingFile>
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout pattern="STDOUT %d %-5p [%t] %C{2} (%F:%L) - %m%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Logger name="ch.kosh.kirasystem" level="debug">
+			<AppenderRef ref="rollingFileLogger" />
+			<AppenderRef ref="fileLoggerScanner" />
+		</Logger>
+		<Logger name="ch.kosh.kirasystem.server" level="debug">
+			<AppenderRef ref="rollingFileLogger" />
+			<AppenderRef ref="fileLoggerScanner" />
+		</Logger>
+		<Logger name="ch.kosh.kirasystem.scanner" level="debug">
+			<AppenderRef ref="rollingFileLogger" />
+		</Logger>
+		<Logger name="ch.kosh.kirasystem.web" level="info">
+			<AppenderRef ref="rollingFileLogger" />
+		</Logger>
+		<Root level="debug">
+			<AppenderRef ref="STDOUT" />
+		</Root>
+	</Loggers>
+</Configuration>
